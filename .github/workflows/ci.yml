@@ -1,0 +1,19 @@
+name: CI Gate Check
+
+on: [push, pull_request]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Verify Repository Gate Checkpoints
+        run: |
+          echo "Verifying VerifAI repository structure..."
+          test -f index.html || (echo "Missing index.html" && exit 1)
+          test -f ARCHITECTURE.md || (echo "Missing ARCHITECTURE.md" && exit 1)
+          test -f AGENTS.md || (echo "Missing AGENTS.md" && exit 1)
+          test -f AGENTS_AND_SKILLS.md || (echo "Missing AGENTS_AND_SKILLS.md" && exit 1)
+          echo "All gate checkpoints verified!"
