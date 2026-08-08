@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VerifAI - Enterprise Cyberpunk Matrix</title>
-    <!-- THIS IS THE CRUCIAL LINE THAT LINKS YOUR CSS -->
+    <title>VerifAI - Enterprise Compliance Matrix</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,15 +12,15 @@
     <div class="logo">VerifAI</div>
     <div class="nav-item active" onclick="switchView('view-hub', this)">Matrix Hub</div>
     <div class="nav-item" onclick="switchView('view-database', this)">Candidate Data</div>
-    <div class="nav-item" onclick="alert('Module locked. Requires Level 4 clearance.')">Policy Config</div>
-    <div class="nav-item" onclick="alert('Connecting to deep archive...')">Audit Archives</div>
-    <div class="nav-item" style="margin-top: auto;">System Logs</div>
+    <div class="nav-item" onclick="switchView('view-policy', this)">Policy Config</div>
+    <div class="nav-item" onclick="switchView('view-archives', this)">Audit Archives</div>
+    <div class="nav-item" onclick="switchView('view-logs', this)">System Logs</div>
 </aside>
 
 <main class="main-content">
     <header>
         <h1>Compliance Engine v3.0</h1>
-        <p class="subtitle">Secure Track A Connection Established • Core Architecture Online</p>
+        <p class="subtitle">Secure Node.js Backend Gateway • Enterprise Compliance Node</p>
     </header>
 
     <!-- VIEW 1: THE MAIN MATRIX HUB -->
@@ -40,7 +39,7 @@
                 <div class="metric-label">Manual Overrides Pending</div>
             </div>
         </div>
-        <!-- PHASE 3: ANIMATED ANALYTICS CHART -->
+
         <div class="card accent-pink" style="margin-bottom: 24px;">
             <div class="flex-between">
                 <h3 style="margin: 0;">System Analytics: Weekly Clearance Volume</h3>
@@ -58,27 +57,32 @@
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-            <div class="card accent-cyan">
+           <div class="card accent-cyan">
                 <h3>API Authentication</h3>
-                <div class="form-group">
-                    <label for="apiKey">Input Gemini Uplink Key</label>
-                    <input type="password" id="apiKey" placeholder="[ ENTER SECURE KEY ]">
+                <div class="form-group" style="background: rgba(0, 255, 170, 0.05); border: 1px solid var(--neon-green); padding: 16px; text-align: center; border-radius: 4px;">
+                    <p style="color: var(--neon-green); margin: 0; font-family: var(--font-mono); font-size: 14px; letter-spacing: 1px;">
+                        [ 🔒 SECURE UPLINK ACTIVE ]
+                    </p>
+                    <p style="margin: 8px 0 0 0; font-size: 10px; color: var(--text-muted); text-transform: uppercase;">
+                        Groq LPU Node / API Key Encrypted in Server Vault
+                    </p>
                 </div>
                 
+                <!-- NEW HYBRID DYNAMIC DROPDOWN -->
                 <h3 style="margin-top: 30px;">Target Data Index</h3>
-                <div class="form-group">
-                    <select id="candidateSelect" onchange="loadCandidateProfile()">
-                        <option value="0">Subject: Rahul Sharma (Dev)</option>
-                        <option value="1">Subject: Priya Patel (Architect)</option>
-                        <option value="2">Subject: Amit Kumar (Security)</option>
+                <div class="form-group" style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <select id="candidateSelect" onchange="updateSelectedProfile()" style="flex: 1; background: var(--bg-input); border: 1px solid var(--border-dim); color: var(--neon-cyan); padding: 10px; font-family: var(--font-mono); outline: none;">
+                        <!-- Options will be injected here automatically by JavaScript -->
                     </select>
+                    <button class="btn-secondary" onclick="addNewSubject()" style="padding: 0 15px; font-weight: bold; cursor: pointer;">+ ADD</button>
                 </div>
 
-                <div style="background: var(--bg-input); padding: 16px; border: 1px solid var(--border-dim);">
-                    <p style="margin: 0 0 8px 0; color: var(--text-muted);">Subject: <strong id="candName" style="color: var(--text-main);">Rahul Sharma</strong></p>
-                    <p style="margin: 0 0 8px 0; color: var(--text-muted);">Class: <strong id="candRole" style="color: var(--text-main);">Level 4 Developer</strong></p>
-                    <p style="margin: 0;">Status: <span id="statusBadge" class="status-badge status-pending">[ AWAITING SCAN ]</span></p>
+                <div style="background: rgba(0, 255, 170, 0.05); padding: 16px; border: 1px solid var(--border-dim);">
+                    <p style="margin: 0 0 8px 0; color: var(--text-muted);">Subject: <strong id="candName" style="color: var(--text-main);">...</strong></p>
+                    <p style="margin: 0 0 8px 0; color: var(--text-muted);">Class: <strong id="candRole" style="color: var(--text-main);">...</strong></p>
+                    <p style="margin: 0;">Status: <span id="statusBadge" class="status-badge status-pending">[ READY FOR INGESTION ]</span></p>
                 </div>
+                <!-- END NEW DROPDOWN -->
             </div>
 
             <div class="card accent-pink">
@@ -107,16 +111,17 @@
             <div class="response-box" id="aiOutput"></div>
 
             <h4 id="humanOverrideWarning" class="hidden" style="margin-top: 24px; border-top: 1px solid var(--border-dim); padding-top: 16px; color: var(--neon-yellow); letter-spacing: 1px;">WARNING: HUMAN-IN-THE-LOOP OVERRIDE REQUIRED</h4>
-            <div class="btn-group hidden" id="actionButtons">
-                <button class="btn-success" onclick="recordDecision('Approved')">Grant Clearance</button>
-                <button class="btn-danger" onclick="recordDecision('Rejected')">Purge / Reject</button>
+            
+            <div class="btn-group hidden" id="actionButtons" style="display: flex; gap: 10px; margin-top: 15px;">
+                <button class="btn-success" onclick="grantClearance()" style="flex: 1; padding: 12px; font-weight: bold;">GRANT CLEARANCE</button>
+                <button class="btn-danger" onclick="purgeRecord()" style="flex: 1; padding: 12px; font-weight: bold;">PURGE / REJECT</button>
             </div>
         </div>
 
         <div class="card accent-green" style="margin-bottom: 40px; margin-top: 24px;">
             <div class="flex-between" style="margin-bottom: 15px;">
                 <h3 style="margin: 0;">Encrypted Audit Trail</h3>
-                <button class="btn-secondary" style="font-size: 11px; padding: 8px 12px;" onclick="downloadAuditReport()">[ DOWNLOAD .TXT ]</button>
+                <button class="btn-secondary" style="font-size: 11px; padding: 8px 12px;" onclick="downloadReport()">[ DOWNLOAD .TXT ]</button>
             </div>
             <div class="audit-log" id="auditLog">
                 > System Matrix Initialized.<br>> Awaiting data packet injection...
@@ -124,14 +129,13 @@
         </div>
     </div>
 
-    <!-- VIEW 2: NEW CANDIDATE DATABASE VIEW (Hidden by default) -->
+    <!-- VIEW 2: CANDIDATE DATABASE VIEW -->
     <div id="view-database" class="hidden">
         <div class="card accent-pink">
             <div class="flex-between" style="margin-bottom: 20px;">
                 <h3 style="margin: 0;">Global Candidate Index</h3>
                 <input type="text" placeholder="Search matrix..." style="width: 250px; padding: 8px;">
             </div>
-            
             <table>
                 <thead>
                     <tr>
@@ -142,17 +146,50 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody id="candidateTableBody">
-                    <!-- JavaScript will inject rows here dynamically -->
-                </tbody>
+                <tbody id="candidateTableBody"></tbody>
             </table>
         </div>
     </div>
 
+    <!-- VIEW 3: ACTIVE POLICY CONFIGURATOR -->
+    <div id="view-policy" class="hidden">
+        <div class="card accent-cyan">
+            <h3>Compliance Policy Configuration (HR-17)</h3>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">Modify evaluation constraints. The Node.js backend gateway dynamically routes these directives during document verification.</p>
+            
+            <div class="form-group">
+                <label for="policyInput">Active Policy Directive</label>
+                <textarea id="policyInput" rows="5" style="width: 100%; background: var(--bg-input); border: 1px solid var(--border-dim); color: var(--neon-cyan); padding: 12px; font-family: var(--font-mono); font-size: 13px; outline: none;">Company Policy HR-17: Mandatory Verification of Highest Degree Certificate. Check if the university name is authentic, graduation year is valid, and candidate name matches records precisely.</textarea>
+            </div>
+            <button class="btn-primary" onclick="alert('Policy constraints committed to backend memory vector.')">[ COMMIT DIRECTIVE ]</button>
+        </div>
+    </div>
+
+    <!-- VIEW 4: SYSTEM TELEMETRY LOGS -->
+    <div id="view-logs" class="hidden">
+        <div class="card accent-green">
+            <div class="flex-between" style="margin-bottom: 15px;">
+                <h3 style="margin: 0;">Node.js Server Telemetry Logs</h3>
+                <button class="btn-secondary" style="font-size: 11px; padding: 8px 12px;" onclick="fetchServerLogs()">[ REFRESH TELEMETRY ]</button>
+            </div>
+            <div class="audit-log" id="serverLogsContainer" style="height: 350px; color: var(--neon-green);">
+                > Fetching live logs from Node backend gateway...
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW 5: AUDIT ARCHIVES (RAW VAULT) -->
+    <div id="view-archives" class="hidden">
+        <div class="card accent-pink">
+            <h3>Deep Secure Vault (Raw Matrix Archives)</h3>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">Encrypted historical compliance payloads.</p>
+            <div class="audit-log" id="archiveVault" style="height: 400px; color: var(--neon-pink); overflow-y: auto;">
+                > Vault decrypted.<br>> Awaiting query...
+            </div>
+        </div>
+    </div>
 </main>
 
-<!-- THIS LINKS YOUR JAVASCRIPT -->
 <script src="app.js"></script>
-
 </body>
 </html>

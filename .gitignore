@@ -1,0 +1,10 @@
+# 🔒 SECURE VAULT (NEVER UPLOAD)
+.env
+
+# 📦 NODE DEPENDENCIES (Too large, let the server install them)
+node_modules/
+package-lock.json
+
+# 🖥️ OS JUNK FILES
+.DS_Store
+Thumbs.db

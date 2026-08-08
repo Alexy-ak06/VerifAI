@@ -35,7 +35,6 @@ body {
 }
 
 header h1 { margin: 0; font-size: 24px; color: var(--text-main); text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
-header h1::before { content: '// '; color: var(--neon-pink); }
 header p.subtitle { margin: 8px 0 0 0; color: var(--neon-yellow); font-size: 12px; text-transform: uppercase; letter-spacing: 1px;}
 
 .card { background: var(--bg-panel); border: 1px solid var(--border-dim); padding: 20px; position: relative; }
@@ -45,7 +44,6 @@ header p.subtitle { margin: 8px 0 0 0; color: var(--neon-yellow); font-size: 12p
 .card.accent-green::before { background: var(--neon-green); box-shadow: 0 0 10px rgba(57,255,20,0.5); }
 
 h3 { margin: 0 0 16px 0; font-size: 14px; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 1.5px; }
-h3::before { content: '// '; color: var(--text-muted); }
 
 .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .metric-card { background: var(--bg-panel); border: 1px solid var(--border-dim); padding: 20px; border-top: 2px solid var(--border-dim); }
